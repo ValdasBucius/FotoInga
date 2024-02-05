@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.active {
+  color: white;
+}
+.active::after {
+  content: "";
+  background-color: pink; /* Replace with the desired color code */
+  height: 3px;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  bottom: -5px;
+  border-radius: 10px; /* You can adjust the value based on your preference */
+  transition: width 0.3s ease;
+}
