@@ -18,6 +18,7 @@ export default {
         background2: "url('/src/data/Background2.jpg')",
         background3: "url('/src/data/Background3.jpg')",
         background4: "url('/src/data/Background4.jpg')",
+        background5: "url('/src/data/Background5.jpg')",
       },
     },
   },
