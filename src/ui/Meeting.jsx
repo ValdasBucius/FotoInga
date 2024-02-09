@@ -6,8 +6,10 @@ import clock from "../data/Icons/clock.svg";
 function Meeting({
   meeting,
   onDeleteAppointment,
-  onSetIsEditing,
   onEditAppointment,
+  onSetEdit,
+  onEdit,
+  onCreate,
 }) {
   const {
     id,
@@ -25,6 +27,11 @@ function Meeting({
 
   function handleDeleteAppointment(id) {
     onDeleteAppointment(id);
+  }
+
+  function handleEdit(id) {
+    onSetEdit((state) => !state);
+    onEditAppointment(id);
   }
 
   return (
@@ -65,12 +72,24 @@ function Meeting({
         </div>
       </div>
 
-      <button
-        className="mt-2 rounded-lg border border-black bg-red-600/75 p-2"
-        onClick={() => handleDeleteAppointment(id)}
-      >
-        Delete appointment
-      </button>
+      {!onCreate && (
+        <div>
+          <button
+            className={`mt-2 rounded-lg border border-black ${onEdit ? "bg-stone-400/25 text-stone-400" : "/ 75 bg-red-600"} p-2`}
+            disabled={onEdit}
+            onClick={() => handleDeleteAppointment(id)}
+          >
+            Delete appointment
+          </button>
+          <button
+            className={`mt-2 rounded-lg border border-black ${onEdit ? "bg-stone-400/25 text-stone-400" : "/ 75 bg-red-600"} p-2`}
+            disabled={onEdit}
+            onClick={() => handleEdit(id)}
+          >
+            Edit appointment
+          </button>
+        </div>
+      )}
     </li>
   );
 }

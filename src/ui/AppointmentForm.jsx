@@ -1,34 +1,45 @@
 import { format } from "date-fns";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 
 function AppointmentForm({
   onSelectedDay,
   onAddAppointment,
-  // onIsEditing,
-  // onMeetingsData,
-  // onEditId,
+  onDateToEdit,
+  onCreate,
+  onEdit,
+  onSetCreate,
+  onSetEdit,
+  onFinalEditFunction,
 }) {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitSuccessful, reset },
   } = useForm({
     defaultValues: {
-      id: Math.random(),
+      id: onDateToEdit ? onDateToEdit[0].id : Math.random(),
       date: format(onSelectedDay, "yyyy-MM-dd"),
+      name: onDateToEdit ? onDateToEdit[0].name : "",
+      imageUrl: onDateToEdit ? onDateToEdit[0].imageUrl : "",
+      location: onDateToEdit ? onDateToEdit[0].location : "",
+      note: onDateToEdit ? onDateToEdit[0].note : "",
+      price: onDateToEdit ? onDateToEdit[0].price : "",
+      fuel: onDateToEdit ? onDateToEdit[0].fuel : "",
+      hours: onDateToEdit ? onDateToEdit[0].hours : "",
+      start: onDateToEdit ? onDateToEdit[0].start : "",
+      end: onDateToEdit ? onDateToEdit[0].end : "",
     },
   });
-
-  // const curEditingObject = onMeetingsData.filter(
-  //   (item) => item.id === onEditId,
-  // );
 
   return (
     <>
       <form
         className="items-left flex flex-col justify-center gap-3 bg-black/50 p-4 pt-16 text-black "
         onSubmit={handleSubmit((data) => {
-          onAddAppointment(data);
+          onDateToEdit ? onFinalEditFunction(data) : onAddAppointment(data);
+          onSetEdit(false);
+          onSetCreate(false);
         })}
       >
         <div className="flex justify-between gap-2 rounded-lg bg-stone-400 px-4 py-2">
@@ -38,7 +49,6 @@ function AppointmentForm({
             id="name"
             {...register("name", { required: "This is required" })}
             type="text"
-            // onChange={handleHoursQuantity}
             placeholder="Enter name..."
           />
           {errors.name?.message && <p>{errors.name?.message}</p>}
@@ -143,7 +153,7 @@ function AppointmentForm({
         <input
           className="rounded-md bg-stone-200 py-2 text-lg tracking-widest"
           type="submit"
-          value="Submit"
+          value={`${onCreate ? "Create" : "Edit"}`}
         />
       </form>
     </>
