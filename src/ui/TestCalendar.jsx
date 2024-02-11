@@ -6,6 +6,9 @@ import AppointmentForm from "./AppointmentForm";
 import { today } from "../utils/helpers";
 import Calendar from "./Calendar";
 import { toast } from "react-toastify";
+import { useQuery } from "@tanstack/react-query";
+import { getReservations } from "../services/supabaseApi";
+import Loader from "./Loader";
 
 const meetings = [
   {
@@ -83,6 +86,18 @@ function TestCalendar() {
       object,
     ]);
   }
+
+  const {
+    isLoading,
+    data: reservations,
+    error,
+  } = useQuery({
+    queryKey: ["reservation"],
+    queryFn: getReservations,
+  });
+
+  if (isLoading) return <Loader />;
+
   return (
     <div className="grid grid-cols-3 gap-6">
       <div className="col-span-2 rounded-xl border border-black bg-black/50 p-4">
