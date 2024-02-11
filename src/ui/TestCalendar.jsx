@@ -1,28 +1,11 @@
-import {
-  startOfToday, //išmeta šiandienos diena
-  eachDayOfInterval, //Priima objekta su start data ir end data
-  add,
-  endOfMonth,
-  endOfWeek,
-  format,
-  getDay,
-  isEqual,
-  isSameDay,
-  isSameMonth,
-  isToday,
-  parse,
-  parseISO,
-  startOfMonth,
-  isPast,
-} from "date-fns";
-import { IoChevronBack } from "react-icons/io5";
-import { IoChevronForward } from "react-icons/io5";
+import { isSameDay, parseISO } from "date-fns";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Meeting from "./Meeting";
 import AppointmentForm from "./AppointmentForm";
 import { today } from "../utils/helpers";
 import Calendar from "./Calendar";
+import { toast } from "react-toastify";
 
 const meetings = [
   {
@@ -85,6 +68,10 @@ function TestCalendar() {
   }
   function deleteAppointment(id) {
     setMeetingsData((prev) => prev.filter((item) => item.id !== id));
+    toast("Successfully Deleted", {
+      theme: "dark",
+      autoClose: 2000,
+    });
   }
 
   function editAppointment(id) {
@@ -96,19 +83,10 @@ function TestCalendar() {
       object,
     ]);
   }
-
   return (
-    <div className="grid grid-cols-2">
-      <div className=" rounded-xl border border-black bg-black/50 p-4">
-        <Calendar
-          setSelectedDay={setSelectedDay}
-          selectedDay={selectedDay}
-          meetingsData={meetingsData}
-          onSetCreate={setCreate}
-          onEdit={edit}
-        />
-
-        {(create || edit) && (
+    <div className="grid grid-cols-3 gap-6">
+      <div className="col-span-2 rounded-xl border border-black bg-black/50 p-4">
+        {create || edit ? (
           <AppointmentForm
             onSelectedDay={selectedDay}
             onAddAppointment={addAppointment}
@@ -118,11 +96,20 @@ function TestCalendar() {
             onEdit={edit}
             onSetEdit={setEdit}
             onFinalEditFunction={finalEditFunction}
+            onSetDateToEdit={setDateToEdit}
+          />
+        ) : (
+          <Calendar
+            setSelectedDay={setSelectedDay}
+            selectedDay={selectedDay}
+            meetingsData={meetingsData}
+            onSetCreate={setCreate}
+            onEdit={edit}
           />
         )}
       </div>
 
-      <div className="justify-self-end">
+      <div>
         <ul>
           {selectedDayMeetings.length > 0 ? (
             selectedDayMeetings.map((meeting) => (
@@ -137,7 +124,7 @@ function TestCalendar() {
               />
             ))
           ) : (
-            <p>No meetings for today</p>
+            <p className="bg-black/25">No meetings for today</p>
           )}
         </ul>
       </div>

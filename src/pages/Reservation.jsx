@@ -1,9 +1,10 @@
 import Container from "../ui/Container";
+import background from "../data/Background5.jpg";
 
 import TestCalendar from "../ui/TestCalendar";
 function Reservation() {
   return (
-    <div className="h-screen w-full bg-background5 bg-cover bg-center bg-no-repeat pt-[120px] text-center text-stone-200">
+    <div className="pt-[120px] text-center text-stone-200">
       <Container>
         <TestCalendar />
       </Container>

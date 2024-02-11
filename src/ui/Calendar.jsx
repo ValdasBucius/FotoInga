@@ -11,7 +11,6 @@ import {
   isToday,
   parse,
   parseISO,
-  startOfToday,
 } from "date-fns";
 import { useState } from "react";
 import { IoChevronBack, IoChevronForward } from "react-icons/io5";
@@ -76,7 +75,7 @@ function Calendar({
       <div className="grid grid-cols-7 grid-rows-5 text-lg">
         {days.map((day, dayIndex) => (
           <button
-            className={`${dayIndex === 0 ? colStartClasses[getDay(day)] : undefined} ${isToday(day) && "border"} ${isEqual(day, selectedDay) && "bg-green-s800/75"} ${!isSameMonth(day, firstDayCurrentMonth) && "text-stone-600"} m-1 flex items-center justify-center rounded-md p-1 hover:bg-stone-400/75`}
+            className={`${dayIndex === 0 ? colStartClasses[getDay(day)] : undefined} ${isToday(day) && "border"} ${isEqual(day, selectedDay) && "bg-green-800/75"} ${!isSameMonth(day, firstDayCurrentMonth) && "text-stone-600"} m-1 flex items-center justify-center rounded-md p-1 hover:bg-stone-400/75`}
             key={day}
             onClick={() => setSelectedDay(day)}
           >
