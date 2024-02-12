@@ -6,8 +6,8 @@ import AppointmentForm from "./AppointmentForm";
 import { today } from "../utils/helpers";
 import Calendar from "./Calendar";
 import { toast } from "react-toastify";
-import { useQuery } from "@tanstack/react-query";
 import { getReservations } from "../services/supabaseApi";
+import { useQuery } from "@tanstack/react-query";
 import Loader from "./Loader";
 
 const meetings = [
@@ -56,15 +56,25 @@ const meetings = [
 ];
 
 function TestCalendar() {
+  const {
+    isLoading,
+    data: reservations,
+    error,
+  } = useQuery({
+    queryKey: ["reservations"],
+    queryFn: getReservations,
+  });
   const [selectedDay, setSelectedDay] = useState(today);
   const [create, setCreate] = useState(false);
   const [edit, setEdit] = useState(false);
   const [meetingsData, setMeetingsData] = useState(meetings);
   const [dateToEdit, setDateToEdit] = useState();
-  const selectedDayMeetings = meetingsData.filter((meeting) =>
+
+  if (isLoading) return <Loader />;
+
+  const selectedDayMeetings = reservations?.filter((meeting) =>
     isSameDay(parseISO(meeting.date), selectedDay),
   );
-
   function addAppointment(object) {
     setMeetingsData((prev) => [...prev, object]);
     setCreate((state) => !state);
@@ -86,18 +96,6 @@ function TestCalendar() {
       object,
     ]);
   }
-
-  const {
-    isLoading,
-    data: reservations,
-    error,
-  } = useQuery({
-    queryKey: ["reservation"],
-    queryFn: getReservations,
-  });
-
-  if (isLoading) return <Loader />;
-
   return (
     <div className="grid grid-cols-3 gap-6">
       <div className="col-span-2 rounded-xl border border-black bg-black/50 p-4">

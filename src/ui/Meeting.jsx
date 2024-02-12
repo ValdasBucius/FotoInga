@@ -3,6 +3,10 @@ import calendarIcon from "../data/Icons/calendar.svg";
 import moneyIcon from "../data/Icons/money.svg";
 import clock from "../data/Icons/clock.svg";
 import { useState } from "react";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { deleteReservation, getReservations } from "../services/supabaseApi";
+import Loader from "./Loader";
+import { toast } from "react-toastify";
 
 function Meeting({
   meeting,
@@ -24,7 +28,18 @@ function Meeting({
     onSetEdit(true);
     onEditAppointment(id);
   }
+  const queryClient = useQueryClient();
 
+  const { isLoading: isDeleting, mutate } = useMutation({
+    mutationFn: deleteReservation,
+    onSuccess: () => {
+      toast.success("Reservation successfully deleted");
+      queryClient.invalidateQueries({
+        queryKey: ["reservations"],
+      });
+    },
+    onError: (err) => alert(err.message),
+  });
   return (
     <li className="mb-1 flex flex-col items-center justify-center rounded-lg border border-black bg-black/50 p-4 capitalize duration-500 hover:bg-black/75">
       {showMeeting ? (
@@ -75,8 +90,8 @@ function Meeting({
             <div>
               <button
                 className={`mt-2 rounded-lg border border-black ${onEdit ? "bg-stone-400/25 text-stone-400" : "/ 75 bg-red-600"} p-2`}
-                disabled={onEdit}
-                onClick={() => handleDeleteAppointment(id)}
+                disabled={onEdit || isDeleting}
+                onClick={() => mutate(id)}
               >
                 Delete appointment
               </button>
