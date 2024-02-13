@@ -19,3 +19,17 @@ export async function deleteReservation(id) {
   }
   return data;
 }
+
+export async function createReservation(newReservation) {
+  const { data, error } = await supabase
+    .from("reservations")
+    .insert([newReservation])
+
+    .select();
+  if (error) {
+    throw new Error("Reservation could not be deleted");
+  }
+  console.log(error);
+  console.log(newReservation);
+  return data;
+}

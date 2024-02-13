@@ -38,7 +38,7 @@ function Meeting({
         queryKey: ["reservations"],
       });
     },
-    onError: (err) => alert(err.message),
+    onError: (err) => toast.error(err.message),
   });
   return (
     <li className="mb-1 flex flex-col items-center justify-center rounded-lg border border-black bg-black/50 p-4 capitalize duration-500 hover:bg-black/75">

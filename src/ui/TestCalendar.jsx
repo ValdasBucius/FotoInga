@@ -97,7 +97,7 @@ function TestCalendar() {
     ]);
   }
   return (
-    <div className="grid grid-cols-3 gap-6">
+    <div className="grid h-dvh grid-cols-3 gap-6">
       <div className="col-span-2 rounded-xl border border-black bg-black/50 p-4">
         {create || edit ? (
           <AppointmentForm
