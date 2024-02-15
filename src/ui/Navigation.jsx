@@ -1,23 +1,16 @@
 import NavLi from "./NavLi";
-import burger from "../data/Icons/navigation.svg";
-import { useState } from "react";
 
 function Navigation() {
-  const [burgerActive, setBurgerActive] = useState(false);
-
   return (
-    <nav>
-      {/* <ul className="flex gap-4 tracking-wide text-stone-200">
+    <nav className="bg-gradient-to-t from-black to-black/10 py-4">
+      <ul className="flex flex-col items-center justify-center gap-4 text-center tracking-wide text-stone-200">
         <NavLi path="/">Home</NavLi>
         <NavLi path="/about">About</NavLi>
         <NavLi path="/reservation">Reservation</NavLi>
         <NavLi path="/contacts">Contacts</NavLi>
         <NavLi path="/galery">Galery</NavLi>
         <NavLi path="/prices">Prices</NavLi>
-      </ul> */}
-      <button onClick={() => setBurgerActive((state) => !state)}>
-        <img src={burger} alt="burger menu" />
-      </button>
+      </ul>
     </nav>
   );
 }

@@ -27,7 +27,7 @@ function TestCalendar() {
   }
 
   return (
-    <div className="grid h-dvh grid-cols-3 gap-6">
+    <div className="pb-8 lg:grid lg:grid-cols-3 lg:gap-6">
       <div className="col-span-2 rounded-xl border border-black bg-black/50 p-4">
         {create || edit ? (
           <AppointmentForm
