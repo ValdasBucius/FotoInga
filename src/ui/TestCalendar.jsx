@@ -5,117 +5,45 @@ import Meeting from "./Meeting";
 import AppointmentForm from "./AppointmentForm";
 import { today } from "../utils/helpers";
 import Calendar from "./Calendar";
-import { toast } from "react-toastify";
-import { getReservations } from "../services/supabaseApi";
-import { useQuery } from "@tanstack/react-query";
 import Loader from "./Loader";
-
-const meetings = [
-  {
-    id: 1,
-    date: "2024-02-08",
-    name: "Lena Krupje",
-    location: "Renavo dvaras",
-    start: "12:30",
-    end: "16:00",
-    price: "90",
-    fuel: "20",
-    hours: 6,
-    note: "Firstable go to church, later to Renavas palace",
-    imageUrl:
-      "https://www.perfocal.com/blog/content/images/2021/01/Perfocal_17-11-2019_TYWFAQ_100_standard-3.jpg",
-  },
-  {
-    id: 3,
-    date: "2024-02-10",
-    name: "Lena Krupje",
-    location: "Renavo dvaras",
-    start: "12:30",
-    end: "16:00",
-    price: "90",
-    fuel: "20",
-    hours: 6,
-    note: "Firstable go to church, later to Renavas palace",
-    imageUrl:
-      "https://www.perfocal.com/blog/content/images/2021/01/Perfocal_17-11-2019_TYWFAQ_100_standard-3.jpg",
-  },
-  {
-    id: 2,
-    date: "2024-02-12",
-    name: "Lena Krupje",
-    location: "Renavo dvaras",
-    start: "12:30",
-    end: "16:00",
-    price: "90",
-    fuel: "20",
-    hours: 6,
-    note: "Firstable go to church, later to Renavas palace",
-    imageUrl:
-      "https://www.perfocal.com/blog/content/images/2021/01/Perfocal_17-11-2019_TYWFAQ_100_standard-3.jpg",
-  },
-];
+import useReservations from "../features/reservations/useReservations";
 
 function TestCalendar() {
-  const {
-    isLoading,
-    data: reservations,
-    error,
-  } = useQuery({
-    queryKey: ["reservations"],
-    queryFn: getReservations,
-  });
+  const { isLoading, reservations } = useReservations();
+
   const [selectedDay, setSelectedDay] = useState(today);
   const [create, setCreate] = useState(false);
   const [edit, setEdit] = useState(false);
-  const [meetingsData, setMeetingsData] = useState(meetings);
-  const [dateToEdit, setDateToEdit] = useState();
+  const [reservationToEdit, setReservationToEdit] = useState();
 
   if (isLoading) return <Loader />;
 
   const selectedDayMeetings = reservations?.filter((meeting) =>
     isSameDay(parseISO(meeting.date), selectedDay),
   );
-  function addAppointment(object) {
-    setMeetingsData((prev) => [...prev, object]);
-    setCreate((state) => !state);
-  }
-  function deleteAppointment(id) {
-    setMeetingsData((prev) => prev.filter((item) => item.id !== id));
-    toast("Successfully Deleted", {
-      theme: "dark",
-      autoClose: 2000,
-    });
-  }
 
   function editAppointment(id) {
-    setDateToEdit(meetingsData.filter((item) => item.id === id));
+    setReservationToEdit(id);
   }
-  function finalEditFunction(object) {
-    setMeetingsData((state) => [
-      ...state.filter((item) => item.id !== object.id),
-      object,
-    ]);
-  }
+
   return (
     <div className="grid h-dvh grid-cols-3 gap-6">
       <div className="col-span-2 rounded-xl border border-black bg-black/50 p-4">
         {create || edit ? (
           <AppointmentForm
             onSelectedDay={selectedDay}
-            onAddAppointment={addAppointment}
-            onDateToEdit={dateToEdit}
+            onReservationToEdit={reservationToEdit}
             onCreate={create}
             onSetCreate={setCreate}
             onEdit={edit}
             onSetEdit={setEdit}
-            onFinalEditFunction={finalEditFunction}
-            onSetDateToEdit={setDateToEdit}
+            onSetDateToEdit={setReservationToEdit}
           />
         ) : (
           <Calendar
             setSelectedDay={setSelectedDay}
             selectedDay={selectedDay}
-            meetingsData={meetingsData}
+            reservations={reservations}
             onSetCreate={setCreate}
             onEdit={edit}
           />
@@ -129,7 +57,6 @@ function TestCalendar() {
               <Meeting
                 key={meeting.id}
                 meeting={meeting}
-                onDeleteAppointment={deleteAppointment}
                 onEditAppointment={editAppointment}
                 onSetEdit={setEdit}
                 onEdit={edit}

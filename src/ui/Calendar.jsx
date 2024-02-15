@@ -31,7 +31,7 @@ const colStartClasses = [
 function Calendar({
   selectedDay,
   setSelectedDay,
-  meetingsData,
+  reservations,
   onSetCreate,
   onEdit,
 }) {
@@ -82,7 +82,7 @@ function Calendar({
             <time key={day.toString()} dateTime={format(day, `yyyy-MM-dd`)}>
               {format(day, "d")}
               <div className="mx-auto flex w-5 justify-center">
-                {meetingsData?.some((meeting) =>
+                {reservations?.some((meeting) =>
                   isSameDay(parseISO(meeting.date), day),
                 ) && <div className="h-1 w-5 rounded-full bg-green-800"></div>}
               </div>

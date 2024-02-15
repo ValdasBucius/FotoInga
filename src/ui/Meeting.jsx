@@ -3,48 +3,25 @@ import calendarIcon from "../data/Icons/calendar.svg";
 import moneyIcon from "../data/Icons/money.svg";
 import clock from "../data/Icons/clock.svg";
 import { useState } from "react";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { deleteReservation, getReservations } from "../services/supabaseApi";
-import Loader from "./Loader";
-import { toast } from "react-toastify";
+import useDeleteReservation from "../features/reservations/useDeleteReservation";
 
-function Meeting({
-  meeting,
-  onDeleteAppointment,
-  onEditAppointment,
-  onSetEdit,
-  onEdit,
-  onCreate,
-}) {
+function Meeting({ meeting, onEditAppointment, onSetEdit, onEdit, onCreate }) {
   const { id, name, date, location, start, end, price, fuel, hours, note } =
     meeting;
 
   const [showMeeting, setShowMeeting] = useState(false);
-  function handleDeleteAppointment(id) {
-    onDeleteAppointment(id);
-  }
+  const { deleteReservation, isDeleting } = useDeleteReservation();
 
-  function handleEdit(id) {
+  function handleEdit(meeting) {
     onSetEdit(true);
-    onEditAppointment(id);
+    onEditAppointment(meeting);
   }
-  const queryClient = useQueryClient();
 
-  const { isLoading: isDeleting, mutate } = useMutation({
-    mutationFn: deleteReservation,
-    onSuccess: () => {
-      toast.success("Reservation successfully deleted");
-      queryClient.invalidateQueries({
-        queryKey: ["reservations"],
-      });
-    },
-    onError: (err) => toast.error(err.message),
-  });
   return (
     <li className="mb-1 flex flex-col items-center justify-center rounded-lg border border-black bg-black/50 p-4 capitalize duration-500 hover:bg-black/75">
       {showMeeting ? (
         <>
-          <div className="flex flex-col">
+          <div className="flex flex-col ">
             <button onClick={() => setShowMeeting(false)}>
               <div>
                 <div className="flex flex-col items-center justify-center">
@@ -91,14 +68,14 @@ function Meeting({
               <button
                 className={`mt-2 rounded-lg border border-black ${onEdit ? "bg-stone-400/25 text-stone-400" : "/ 75 bg-red-600"} p-2`}
                 disabled={onEdit || isDeleting}
-                onClick={() => mutate(id)}
+                onClick={() => deleteReservation(id)}
               >
                 Delete appointment
               </button>
               <button
                 className={`mt-2 rounded-lg border border-black ${onEdit ? "bg-stone-400/25 text-stone-400" : "/ 75 bg-red-600"} p-2`}
                 disabled={onEdit}
-                onClick={() => handleEdit(id)}
+                onClick={() => handleEdit(meeting)}
               >
                 Edit appointment
               </button>

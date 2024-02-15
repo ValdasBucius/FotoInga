@@ -20,16 +20,26 @@ export async function deleteReservation(id) {
   return data;
 }
 
-export async function createReservation(newReservation) {
-  const { data, error } = await supabase
-    .from("reservations")
-    .insert([newReservation])
-
-    .select();
-  if (error) {
-    throw new Error("Reservation could not be deleted");
-  }
-  console.log(error);
+export async function createEditReservation(newReservation, id) {
   console.log(newReservation);
+  console.log(id);
+  //Creating/Edit reservation
+  let query = supabase.from("reservations");
+  //A) Create
+  if (!id) query = query.insert([newReservation]);
+
+  //B) Edit
+  if (id) query = query.update({ ...newReservation }).eq("id", id);
+
+  const { data, error } = await query.select().single();
+
+  if (error) {
+    throw new Error(
+      id
+        ? "Reservation could not be edited"
+        : "Reservation could not be created",
+    );
+  }
+
   return data;
 }
