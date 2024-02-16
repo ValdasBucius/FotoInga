@@ -16,3 +16,11 @@ export function timeIntervals() {
   }
   return times;
 }
+
+export function priceIntervals() {
+  let prices = [];
+  for (let i = 10; i <= 200; i += 5) {
+    prices.push(i);
+  }
+  return prices;
+}

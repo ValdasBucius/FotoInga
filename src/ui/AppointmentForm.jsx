@@ -6,7 +6,7 @@ import { createEditReservation } from "../services/supabaseApi";
 import FormItem from "./FormItem";
 import useCreateReservation from "../features/reservations/useCreateReservation";
 import useEditReservation from "../features/reservations/useEditReservation";
-import { timeIntervals } from "../utils/helpers";
+import { priceIntervals, timeIntervals } from "../utils/helpers";
 
 function AppointmentForm({
   onSelectedDay,
@@ -97,6 +97,7 @@ function AppointmentForm({
 
         <FormItem label="Event starts at" error={errors.start?.message}>
           <select
+            disabled={isCreating || isEditing}
             className="rounded-md px-1 text-black"
             id="start"
             {...register("start", { required: "This is required" })}
@@ -109,6 +110,7 @@ function AppointmentForm({
 
         <FormItem label="Event ends at" error={errors.end?.message}>
           <select
+            disabled={isCreating || isEditing}
             className="rounded-md px-1 text-black"
             id="end"
             {...register("end", { required: "This is required" })}
@@ -119,26 +121,30 @@ function AppointmentForm({
           </select>
         </FormItem>
 
-        <FormItem label="Hour Price" error={errors.price?.message}>
-          <input
+        <FormItem label="Price per hour" error={errors.price?.message}>
+          <select
+            disabled={isCreating || isEditing}
             className="rounded-md px-1 text-black"
             id="price"
-            disabled={isCreating || isEditing}
             {...register("price", { required: "This is required" })}
-            type="number"
-            placeholder="Enter price..."
-          />
+          >
+            {priceIntervals().map((price) => (
+              <option value={Number(price)}>{price}</option>
+            ))}
+          </select>
         </FormItem>
 
-        <FormItem label="Price for fuel" error={errors.fuel?.message}>
-          <input
+        <FormItem label="Price per fuel" error={errors.fuel?.message}>
+          <select
+            disabled={isCreating || isEditing}
             className="rounded-md px-1 text-black"
             id="fuel"
-            disabled={isCreating || isEditing}
             {...register("fuel", { required: "This is required" })}
-            type="text"
-            placeholder="Enter fuel..."
-          />
+          >
+            {priceIntervals().map((price) => (
+              <option value={Number(price)}>{price}</option>
+            ))}
+          </select>
         </FormItem>
 
         <FormItem label="Note" error={errors.note?.message}>
