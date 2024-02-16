@@ -6,8 +6,7 @@ import { useState } from "react";
 import useDeleteReservation from "../features/reservations/useDeleteReservation";
 
 function Meeting({ meeting, onEditAppointment, onSetEdit, onEdit, onCreate }) {
-  const { id, name, date, location, start, end, price, fuel, hours, note } =
-    meeting;
+  const { id, name, date, location, start, end, price, fuel, note } = meeting;
 
   const [showMeeting, setShowMeeting] = useState(false);
   const { deleteReservation, isDeleting } = useDeleteReservation();
@@ -16,6 +15,12 @@ function Meeting({ meeting, onEditAppointment, onSetEdit, onEdit, onCreate }) {
     onSetEdit(true);
     onEditAppointment(meeting);
   }
+
+  const startTime = Number(start.slice(0, 2));
+  const endTime = Number(end.slice(0, 2));
+  const bookedTime = endTime - startTime;
+
+  const totalPrice = bookedTime * price + fuel;
 
   return (
     <li className="items-between mb-1 flex flex-col justify-center rounded-lg border border-black bg-black/50 p-2 capitalize duration-500 hover:bg-black/75">
@@ -30,33 +35,45 @@ function Meeting({ meeting, onEditAppointment, onSetEdit, onEdit, onCreate }) {
                     src={calendarIcon}
                     alt="calendar icon"
                   />
-                  <h3 className="mb-1 text-lg">{date}</h3>
+                  <h3 className=" text-lg">{date}</h3>
                 </div>
 
-                <p className="mb-1 text-sm">
+                <h4 className="text-xl text-green-600">{name}</h4>
+                <p className="mb-3 text-sm underline">
                   {start} - {end}
                 </p>
-                <p className="mb-2 text-xl text-green-600">{name}</p>
               </div>
 
               <div className="flex flex-col gap-2">
-                <div className="flex items-center justify-between">
-                  <p className="mt-1">{location}</p>
-                  <img src={locationIcon} alt="location icon" />
-                </div>
-                <div className="flex items-center justify-between">
-                  <p>{price}eu/h</p>
-                  <img src={moneyIcon} alt="money bag icon" />
+                <div className="flex items-center justify-center gap-2">
+                  <span className="">Location: </span>
+                  <span className="text-lg text-green-600">{location}</span>
+                  <img className="w-4" src={locationIcon} alt="location icon" />
                 </div>
 
-                <div className="flex items-center justify-between">
-                  <p>{fuel}eu/fuel</p>
-                  <img className="" src={moneyIcon} alt="money bag icon" />
+                <div className="flex items-center justify-center gap-2">
+                  <p>Price per hour: </p>
+                  <span className="text-green-600">{price}</span>
+                  <img
+                    className="w-4 pb-1"
+                    src={moneyIcon}
+                    alt="money bag icon"
+                  />
                 </div>
-                <div className="flex items-center justify-between">
-                  <p>{hours}H ordered</p>
-                  <img className="" src={clock} alt="clock icon" />
+
+                <div className="flex items-center justify-center gap-2">
+                  <p>Fuel costs:</p>
+                  <span className="text-green-600">{fuel}</span>
+                  <img
+                    className="w-4 pb-1"
+                    src={moneyIcon}
+                    alt="money bag icon"
+                  />
                 </div>
+
+                <p className="text-center text-green-600">
+                  Total: {totalPrice} 💸
+                </p>
 
                 <p className="rounded-md bg-stone-200 p-1 text-black">{note}</p>
               </div>

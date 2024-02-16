@@ -6,6 +6,7 @@ import { createEditReservation } from "../services/supabaseApi";
 import FormItem from "./FormItem";
 import useCreateReservation from "../features/reservations/useCreateReservation";
 import useEditReservation from "../features/reservations/useEditReservation";
+import { timeIntervals } from "../utils/helpers";
 
 function AppointmentForm({
   onSelectedDay,
@@ -95,24 +96,27 @@ function AppointmentForm({
         </FormItem>
 
         <FormItem label="Event starts at" error={errors.start?.message}>
-          <input
+          <select
             className="rounded-md px-1 text-black"
             id="start"
             {...register("start", { required: "This is required" })}
-            type="text"
-            placeholder="Enter start..."
-          />
+          >
+            {timeIntervals().map((time) => (
+              <option value={time}>{time}</option>
+            ))}
+          </select>
         </FormItem>
 
         <FormItem label="Event ends at" error={errors.end?.message}>
-          <input
+          <select
             className="rounded-md px-1 text-black"
             id="end"
-            disabled={isCreating || isEditing}
             {...register("end", { required: "This is required" })}
-            type="text"
-            placeholder="Enter end..."
-          />
+          >
+            {timeIntervals().map((time) => (
+              <option value={time}>{time}</option>
+            ))}
+          </select>
         </FormItem>
 
         <FormItem label="Hour Price" error={errors.price?.message}>
@@ -134,20 +138,6 @@ function AppointmentForm({
             {...register("fuel", { required: "This is required" })}
             type="text"
             placeholder="Enter fuel..."
-          />
-        </FormItem>
-
-        <FormItem
-          label="How long your services are needed?"
-          error={errors.hours?.message}
-        >
-          <input
-            className="rounded-md px-1 text-black"
-            id="hours"
-            disabled={isCreating || isEditing}
-            {...register("hours", { required: "This is required" })}
-            type="number"
-            placeholder="Enter hours..."
           />
         </FormItem>
 
