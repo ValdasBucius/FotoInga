@@ -11,6 +11,7 @@ import {
   isToday,
   parse,
   parseISO,
+  subDays,
 } from "date-fns";
 import { useState } from "react";
 import { IoChevronBack, IoChevronForward } from "react-icons/io5";
@@ -34,11 +35,12 @@ function Calendar({
   reservations,
   onSetCreate,
   onEdit,
+  selectedDayMeetings,
 }) {
   const [currentMonth, setCurrentMonth] = useState(format(today, "MMM-yyyy")); //Iš šiandienos išskaitome menesį ir metus
 
   const firstDayCurrentMonth = parse(currentMonth, "MMM-yyyy", new Date());
-
+  const reachedLimit = selectedDayMeetings.length >= 3;
   const days = eachDayOfInterval({
     start: firstDayCurrentMonth,
     end: endOfMonth(firstDayCurrentMonth),
@@ -73,7 +75,7 @@ function Calendar({
       <div className="mb-2 grid grid-cols-7 grid-rows-5 text-lg">
         {days.map((day, dayIndex) => (
           <button
-            className={`${dayIndex === 0 ? colStartClasses[getDay(day)] : undefined} ${isToday(day) && "bg-green-800/75"} ${isEqual(day, selectedDay) && "bg-green-200/25"} ${!isSameMonth(day, firstDayCurrentMonth) && "text-stone-600"} m-[0.5px] flex items-center justify-center rounded-md p-1 hover:bg-stone-400/50`}
+            className={`${dayIndex === 0 ? colStartClasses[getDay(day)] : undefined} ${isToday(day) && "bg-green-800/75"} ${isEqual(day, selectedDay) && "bg-green-200/25"} ${!isSameMonth(day, firstDayCurrentMonth) && "text-stone-600"} m-[0.5px] flex items-center justify-center rounded-md p-1 hover:bg-stone-400/50 ${isPast(subDays(day, -1)) && "text-stone-600/75"}`}
             key={day}
             onClick={() => setSelectedDay(day)}
           >
@@ -82,7 +84,11 @@ function Calendar({
               <div className="mx-auto flex w-5 justify-center">
                 {reservations?.some((meeting) =>
                   isSameDay(parseISO(meeting.date), day),
-                ) && <div className="h-1 w-5 rounded-full bg-red-800/75"></div>}
+                ) && (
+                  <div
+                    className={`h-1 w-5 rounded-full bg-red-800/75 ${isPast(subDays(day, -1)) && `bg-stone-800`}`}
+                  ></div>
+                )}
               </div>
             </time>
           </button>
@@ -91,13 +97,16 @@ function Calendar({
 
       {!onEdit &&
         days.map((day) =>
-          isEqual(day, selectedDay) && !isPast(selectedDay) ? (
+          isEqual(day, selectedDay) && !isPast(subDays(selectedDay, -1)) ? (
             <button
               key={day.id}
-              className="rounded-xl bg-green-800/75 p-2 text-sm text-stone-200 duration-300 hover:bg-green-600/75"
+              className={`${reachedLimit && "bg-stone-800/25 text-stone-400/50"} rounded-xl bg-green-800/75 p-2 text-sm text-stone-200 duration-300 hover:bg-green-800/25`}
               onClick={() => onSetCreate((state) => !state)}
+              disabled={reachedLimit}
             >
-              Create Appointment at {format(day, "MMM d")}
+              {reachedLimit
+                ? `Can't create more than 3`
+                : `Create Appointment at ${format(day, "MMM d")}`}
             </button>
           ) : null,
         )}

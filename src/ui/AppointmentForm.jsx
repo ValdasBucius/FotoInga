@@ -13,6 +13,7 @@ function AppointmentForm({
   onSetCreate,
   onSetEdit,
   onEdit,
+  selectedDayMeetings,
 }) {
   const { id: editId, ...editValues } = onReservationToEdit;
   // const isEditSession = Boolean(editId);
@@ -62,6 +63,7 @@ function AppointmentForm({
     onSetCreate(false);
     onSetEdit(false);
   }
+
   return (
     <>
       <form className="flex flex-col gap-2" onSubmit={handleSubmit(onSubmit)}>
@@ -162,7 +164,7 @@ function AppointmentForm({
 
         <div className="flex gap-2 text-center">
           <button
-            className="rounded-md border px-2 text-sm tracking-widest duration-300 hover:bg-black/75"
+            className="rounded-md border border-black bg-green-800/75 px-2 text-sm tracking-widest duration-300 hover:bg-green-800/25"
             type="submit"
             disabled={isCreating || isEditing}
           >
@@ -170,7 +172,7 @@ function AppointmentForm({
           </button>
 
           <button
-            className="rounded-md border px-2 py-1 text-sm tracking-widest duration-300 hover:bg-black/75"
+            className="rounded-md border border-black bg-red-800/75 px-2 py-1 text-sm tracking-widest duration-300 hover:bg-red-800/25"
             onClick={handleCancel}
             type="reset"
             disabled={isCreating || isEditing}

@@ -18,11 +18,11 @@ function Meeting({ meeting, onEditAppointment, onSetEdit, onEdit, onCreate }) {
   }
 
   return (
-    <li className="mb-1 flex flex-col items-center justify-center rounded-lg border border-black bg-black/50 p-4 capitalize duration-500 hover:bg-black/75">
+    <li className="items-between mb-1 flex flex-col justify-center rounded-lg border border-black bg-black/50 p-2 capitalize duration-500 hover:bg-black/75">
       {showMeeting ? (
         <>
-          <div className="flex flex-col ">
-            <button onClick={() => setShowMeeting(false)}>
+          <button onClick={() => setShowMeeting(false)}>
+            <div className="flex flex-col ">
               <div>
                 <div className="flex flex-col items-center justify-center">
                   <img
@@ -60,24 +60,24 @@ function Meeting({ meeting, onEditAppointment, onSetEdit, onEdit, onCreate }) {
 
                 <p className="rounded-md bg-stone-200 p-1 text-black">{note}</p>
               </div>
-            </button>
-          </div>
+            </div>
+          </button>
 
           {!onCreate && (
-            <div>
+            <div className="flex justify-between">
               <button
-                className={`mt-2 rounded-lg border border-black ${onEdit ? "bg-stone-400/25 text-stone-400" : "/ 75 bg-red-600"} p-2`}
-                disabled={onEdit || isDeleting}
-                onClick={() => deleteReservation(id)}
-              >
-                Delete appointment
-              </button>
-              <button
-                className={`mt-2 rounded-lg border border-black ${onEdit ? "bg-stone-400/25 text-stone-400" : "/ 75 bg-red-600"} p-2`}
+                className={`mt-2 rounded-lg border border-black text-sm ${onEdit ? "bg-stone-400/25 text-stone-200" : "bg-green-800/75 hover:bg-green-800/25"} p-2`}
                 disabled={onEdit}
                 onClick={() => handleEdit(meeting)}
               >
                 Edit appointment
+              </button>
+              <button
+                className={`mt-2 rounded-lg border border-black text-sm ${onEdit ? "bg-stone-400/25 text-stone-200" : "bg-red-800/75 hover:bg-red-800/25"} p-2`}
+                disabled={onEdit || isDeleting}
+                onClick={() => deleteReservation(id)}
+              >
+                Delete appointment
               </button>
             </div>
           )}

@@ -15,6 +15,7 @@ function TestCalendar() {
   const [create, setCreate] = useState(false);
   const [edit, setEdit] = useState(false);
   const [reservationToEdit, setReservationToEdit] = useState();
+  const [showMeetings, setShowMeetings] = useState(false);
 
   if (isLoading) return <Loader />;
 
@@ -41,6 +42,7 @@ function TestCalendar() {
           />
         ) : (
           <Calendar
+            selectedDayMeetings={selectedDayMeetings}
             setSelectedDay={setSelectedDay}
             selectedDay={selectedDay}
             reservations={reservations}
