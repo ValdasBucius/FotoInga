@@ -6,7 +6,7 @@ function Home() {
   const { burgerActive } = useContext(NavigationContext);
 
   return (
-    <div className="absolute top-0 -z-20 min-h-screen min-w-full bg-background bg-center bg-no-repeat">
+    <div className="absolute top-0 -z-20 min-h-dvh min-w-full bg-background bg-center bg-no-repeat">
       <div
         className={`${burgerActive && "pt-[320px]"} pt-[220px] text-center text-stone-200`}
       >

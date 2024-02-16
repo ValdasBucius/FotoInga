@@ -53,29 +53,27 @@ function Calendar({
     setCurrentMonth(format(firstDayNextMonth, "MMM-yyyy"));
   }
   return (
-    <>
-      <div className="mb-4 flex items-center justify-center gap-4 border-b border-black/25">
+    <div>
+      <div className="mb-2 flex items-center justify-center gap-4 border-b border-black/25">
         <button onClick={handlePreviousMonth} className="mb-1">
           <IoChevronBack />
         </button>
-        <h4 className="text-[22px]">
-          {format(firstDayCurrentMonth, "MMMM yyyy")}
-        </h4>
+        <h4 className="text-lg">{format(firstDayCurrentMonth, "MMMM yyyy")}</h4>
         <button onClick={handleNextMonth} className="mb-1">
           <IoChevronForward />
         </button>
       </div>
 
-      <div className="mb-2 grid grid-cols-7 text-xl">
+      <div className="grid grid-cols-7 text-lg">
         {weekDays.map((names) => (
           <span key={names}>{names}</span>
         ))}
       </div>
 
-      <div className="grid grid-cols-7 grid-rows-5 text-lg">
+      <div className="mb-2 grid grid-cols-7 grid-rows-5 text-lg">
         {days.map((day, dayIndex) => (
           <button
-            className={`${dayIndex === 0 ? colStartClasses[getDay(day)] : undefined} ${isToday(day) && "border"} ${isEqual(day, selectedDay) && "bg-green-800/75"} ${!isSameMonth(day, firstDayCurrentMonth) && "text-stone-600"} m-1 flex items-center justify-center rounded-md p-1 hover:bg-stone-400/75`}
+            className={`${dayIndex === 0 ? colStartClasses[getDay(day)] : undefined} ${isToday(day) && "bg-green-800/75"} ${isEqual(day, selectedDay) && "bg-green-200/25"} ${!isSameMonth(day, firstDayCurrentMonth) && "text-stone-600"} m-[0.5px] flex items-center justify-center rounded-md p-1 hover:bg-stone-400/50`}
             key={day}
             onClick={() => setSelectedDay(day)}
           >
@@ -84,7 +82,7 @@ function Calendar({
               <div className="mx-auto flex w-5 justify-center">
                 {reservations?.some((meeting) =>
                   isSameDay(parseISO(meeting.date), day),
-                ) && <div className="h-1 w-5 rounded-full bg-green-800"></div>}
+                ) && <div className="h-1 w-5 rounded-full bg-red-800/75"></div>}
               </div>
             </time>
           </button>
@@ -96,14 +94,14 @@ function Calendar({
           isEqual(day, selectedDay) && !isPast(selectedDay) ? (
             <button
               key={day.id}
-              className="rounded-xl bg-stone-500 p-4 duration-300 hover:bg-stone-700"
+              className="rounded-xl bg-green-800/75 p-2 text-sm text-stone-200 duration-300 hover:bg-green-600/75"
               onClick={() => onSetCreate((state) => !state)}
             >
-              Create Appointment at day {format(day, "MMM d")}
+              Create Appointment at {format(day, "MMM d")}
             </button>
           ) : null,
         )}
-    </>
+    </div>
   );
 }
 

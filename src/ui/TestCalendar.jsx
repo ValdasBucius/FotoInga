@@ -27,8 +27,8 @@ function TestCalendar() {
   }
 
   return (
-    <div className="pb-8 lg:grid lg:grid-cols-3 lg:gap-6">
-      <div className="col-span-2 rounded-xl border border-black bg-black/50 p-4">
+    <div className="flex flex-col gap-2 pb-8">
+      <div className="rounded-xl border border-black bg-black/50 p-4 lg:col-span-2">
         {create || edit ? (
           <AppointmentForm
             onSelectedDay={selectedDay}
@@ -64,7 +64,7 @@ function TestCalendar() {
               />
             ))
           ) : (
-            <p className="bg-black/25">No meetings for today</p>
+            <p>No meetings for today...</p>
           )}
         </ul>
       </div>

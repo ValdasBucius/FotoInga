@@ -64,12 +64,9 @@ function AppointmentForm({
   }
   return (
     <>
-      <form
-        className="items-left flex flex-col justify-center gap-3 p-4 pt-16"
-        onSubmit={handleSubmit(onSubmit)}
-      >
-        <h3 className="text-xl">
-          {!onEdit ? "Create" : "Edit"} appointment on{" "}
+      <form className="flex flex-col gap-2" onSubmit={handleSubmit(onSubmit)}>
+        <h3 className="text-md text-green-400">
+          {!onEdit ? "Create" : "Edit"} appointment on <br />
           {format(onSelectedDay, "yyyy MMM d")}
         </h3>
 
@@ -163,9 +160,9 @@ function AppointmentForm({
           />
         </FormItem>
 
-        <div className="flex justify-center gap-2">
+        <div className="flex gap-2 text-center">
           <button
-            className="rounded-md border p-2 text-lg tracking-widest duration-300 hover:bg-black/75"
+            className="rounded-md border px-2 text-sm tracking-widest duration-300 hover:bg-black/75"
             type="submit"
             disabled={isCreating || isEditing}
           >
@@ -173,7 +170,7 @@ function AppointmentForm({
           </button>
 
           <button
-            className="rounded-md border p-2 text-lg tracking-widest duration-300 hover:bg-black/75"
+            className="rounded-md border px-2 py-1 text-sm tracking-widest duration-300 hover:bg-black/75"
             onClick={handleCancel}
             type="reset"
             disabled={isCreating || isEditing}
