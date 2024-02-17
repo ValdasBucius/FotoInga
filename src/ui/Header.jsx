@@ -4,6 +4,7 @@ import burger from "../data/Icons/navigation.svg";
 import activeBurger from "../data/Icons/closeNavigation.svg";
 import { NavigationContext } from "../App";
 import useWindowSize from "../hooks/useWindowSize";
+import { Link } from "react-router-dom";
 
 function Header() {
   const { burgerActive, setBurgerActive } = useContext(NavigationContext);
@@ -19,12 +20,14 @@ function Header() {
   return (
     <>
       <header className={headerStyle}>
-        <div className="text-stone-200">
-          <h1 className="text-sm uppercase tracking-widest">FotoInga</h1>
-          <h2 className="text-[10px] tracking-widest">
-            Catch your stunning moment
-          </h2>
-        </div>
+        <Link to="/">
+          <div className="text-stone-200">
+            <h1 className="text-sm uppercase tracking-widest">FotoInga</h1>
+            <h2 className="text-[10px] tracking-widest">
+              Catch your stunning moment
+            </h2>
+          </div>
+        </Link>
 
         {spreadNavigation ? (
           <Navigation spreadNavigation={spreadNavigation} />

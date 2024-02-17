@@ -3,12 +3,16 @@ import PriceForm from "../ui/PriceForm";
 
 function Prices() {
   return (
-    <>
-      <div className="bg-background4 flex h-screen w-full flex-col items-center justify-center bg-cover bg-center bg-no-repeat pt-[120px]">
-        <h2 className="text-white">Fill form</h2>
-        <PriceForm />
-      </div>
-    </>
+    <div className="absolute top-0 -z-20 min-h-screen min-w-full bg-background4">
+      <Container>
+        <div className="pt-[80px] text-center text-stone-200">
+          <h2 className="mb-2 text-left text-[30px] uppercase tracking-widest">
+            Prices
+          </h2>
+          <PriceForm />
+        </div>
+      </Container>
+    </div>
   );
 }
 

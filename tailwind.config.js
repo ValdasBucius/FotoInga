@@ -13,7 +13,7 @@ export default {
         background: "#6FD2B4",
       },
       screens: {
-        xs: "500px",
+        xs: "450px",
       },
       backgroundImage: {
         background: "url('/src/data/Background.jpg')",

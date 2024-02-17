@@ -9,16 +9,17 @@ function Navigation({ spreadNavigation }) {
   const vertical = `flex flex-col items-center justify-center gap-4 text-center tracking-wide text-[#f4f4f4]`;
   const navStyle = `bg-gradient-to-t from-black to-black/10 py-4`;
   return (
-    <motion.nav
-      className={spreadNavigation ? "" : navStyle}
-      variants={{
-        hidden: { opacity: 0, x: 100 },
-        visible: { opacity: 1, x: 0 },
-      }}
-      initial="hidden"
-      animate="visible"
-    >
-      <ul className={spreadNavigation ? horizontal : vertical}>
+    <nav className={spreadNavigation ? "" : navStyle}>
+      <motion.ul
+        className={spreadNavigation ? horizontal : vertical}
+        variants={{
+          hidden: { opacity: 0, x: 100 },
+          visible: { opacity: 1, x: 0 },
+        }}
+        initial="hidden"
+        animate="visible"
+        transition={{ duration: 0.5, delay: 0.25 }}
+      >
         <NavLi onClick={setBurgerActive} path="/">
           Home
         </NavLi>
@@ -37,8 +38,8 @@ function Navigation({ spreadNavigation }) {
         <NavLi onClick={setBurgerActive} path="/prices">
           Prices
         </NavLi>
-      </ul>
-    </motion.nav>
+      </motion.ul>
+    </nav>
   );
 }
 

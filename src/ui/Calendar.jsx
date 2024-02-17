@@ -65,6 +65,7 @@ function Calendar({
       }}
       initial="hidden"
       animate="visible"
+      transition={{ duration: 0.5, delay: 0.25 }}
     >
       <div className="mb-2 flex items-center justify-center gap-4 border-b border-black/25">
         <button onClick={handlePreviousMonth} className="mb-1">
