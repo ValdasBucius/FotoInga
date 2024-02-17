@@ -9,7 +9,7 @@ function NavLi({ path, children, onClick }) {
   const hoverAfter = `hover:after:w-[100%]`;
   return (
     <li className={`${base} ${after} ${hoverAfter}`}>
-      <NavLink onClick={() => onClick((state) => !state)} to={path}>
+      <NavLink onClick={() => onClick(false)} to={path}>
         {children}
       </NavLink>
     </li>

@@ -2,12 +2,14 @@ import { useContext } from "react";
 import NavLi from "./NavLi";
 import { NavigationContext } from "../App";
 
-function Navigation() {
+function Navigation({ spreadNavigation }) {
   const { setBurgerActive } = useContext(NavigationContext);
-
+  const horizontal = `flex gap-4 text-sm text-[#f4f4f4]`;
+  const vertical = `flex flex-col items-center justify-center gap-4 text-center tracking-wide text-[#f4f4f4]`;
+  const navStyle = `bg-gradient-to-t from-black to-black/10 py-4`;
   return (
-    <nav className="bg-gradient-to-t from-black to-black/10 py-4">
-      <ul className="flex flex-col items-center justify-center gap-4 text-center tracking-wide text-stone-200">
+    <nav className={spreadNavigation ? "" : navStyle}>
+      <ul className={spreadNavigation ? horizontal : vertical}>
         <NavLi onClick={setBurgerActive} path="/">
           Home
         </NavLi>

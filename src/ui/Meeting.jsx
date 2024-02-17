@@ -28,9 +28,9 @@ function Meeting({ meeting, onEditAppointment, onSetEdit, onEdit, onCreate }) {
       {showMeeting ? (
         <>
           <button onClick={() => setShowMeeting(false)}>
-            <div className="flex flex-col ">
+            <div className="flex flex-col">
               <div>
-                <div className="flex flex-col items-center justify-center">
+                <div className="flex flex-col items-center">
                   <img
                     className="mb-1"
                     src={calendarIcon}
@@ -46,13 +46,13 @@ function Meeting({ meeting, onEditAppointment, onSetEdit, onEdit, onCreate }) {
               </div>
 
               <div className="flex flex-col gap-2">
-                <div className="flex items-center justify-center gap-2">
+                <div className="flex items-center justify-start gap-2">
                   <span className="">Location: </span>
                   <span className="text-lg text-green-600">{location}</span>
                   <img className="w-4" src={locationIcon} alt="location icon" />
                 </div>
 
-                <div className="flex items-center justify-center gap-2">
+                <div className="flex items-center justify-start gap-2">
                   <p>Price per hour: </p>
                   <span className="text-green-600">{price}</span>
                   <img
@@ -62,7 +62,7 @@ function Meeting({ meeting, onEditAppointment, onSetEdit, onEdit, onCreate }) {
                   />
                 </div>
 
-                <div className="flex items-center justify-center gap-2">
+                <div className="flex items-center justify-start gap-2">
                   <p>Fuel costs:</p>
                   <span className="text-green-600">{fuel}</span>
                   <img
@@ -72,11 +72,13 @@ function Meeting({ meeting, onEditAppointment, onSetEdit, onEdit, onCreate }) {
                   />
                 </div>
 
-                <p className="text-center text-green-600">
+                <p className="text-end text-green-600">
                   Total: {totalPrice} 💸
                 </p>
 
-                {note && <p className="rounded-md p-1 text-white">{note}</p>}
+                {note && (
+                  <p className="rounded-md p-1 text-end text-white">{note}</p>
+                )}
               </div>
             </div>
           </button>

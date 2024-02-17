@@ -12,6 +12,9 @@ export default {
         stroke: "#302020",
         background: "#6FD2B4",
       },
+      screens: {
+        xs: "500px",
+      },
       backgroundImage: {
         background: "url('/src/data/Background.jpg')",
         background1: "url('/src/data/Background1.jpg')",
