@@ -18,6 +18,7 @@ import { IoChevronBack, IoChevronForward } from "react-icons/io5";
 import { today } from "../utils/helpers";
 import createIcon from "../data/Icons/create.svg";
 import noMore from "../data/Icons/noMore.svg";
+import { motion } from "framer-motion";
 
 const weekDays = ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"];
 
@@ -57,7 +58,14 @@ function Calendar({
     setCurrentMonth(format(firstDayNextMonth, "MMM-yyyy"));
   }
   return (
-    <div>
+    <motion.div
+      variants={{
+        hidden: { opacity: 0, y: 75 },
+        visible: { opacity: 1, y: 0 },
+      }}
+      initial="hidden"
+      animate="visible"
+    >
       <div className="mb-2 flex items-center justify-center gap-4 border-b border-black/25">
         <button onClick={handlePreviousMonth} className="mb-1">
           <IoChevronBack />
@@ -128,7 +136,7 @@ function Calendar({
             </button>
           ) : null,
         )}
-    </div>
+    </motion.div>
   );
 }
 
