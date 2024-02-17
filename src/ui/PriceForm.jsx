@@ -160,12 +160,3 @@ function PriceForm() {
 
 export default PriceForm;
 
-//Ko reikia Prices listui
-//1. Kalendoriaus su laisvomis datomis
-//2. Kai pasirinksim data, tada is disabled forma virs normalia
-//4. Šventės tipas
-//6. Užsakymo apytikslis valandų skaičius min 1h jei fotosesija, jei kitos sventes, min 2h
-//7. Jei tai krikštynos/vestuvės/gimtadienis - Šventės vieta
-//5. Jei tai krikštynos/vestuvės/gimtadienis ~Svečių skaičius
-//3. Atstumas nuo mažeikių 50km~ +5eu
-//8. Miestas(Gali but, kad pagal rajona automatiskai paskaiciuosiu kaina)

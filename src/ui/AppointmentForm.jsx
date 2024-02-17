@@ -148,7 +148,7 @@ function AppointmentForm({
             disabled={isCreating || isEditing}
             className="rounded-md px-1 text-black"
             id="fuel"
-            {...register("fuel", { required: "This is required" })}
+            {...register("fuel")}
           >
             {priceIntervals().map((price) => (
               <option value={Number(price)}>{price}</option>

@@ -11,6 +11,7 @@ import Birthdays from "./pages/Birthdays";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { createContext, useState } from "react";
+import ScrollToTop from "./features/reservations/ScrollToTop";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -35,6 +36,7 @@ function App() {
         }}
       >
         <BrowserRouter>
+          <ScrollToTop />
           <Routes>
             <Route element={<AppLayout />}>
               <Route index element={<Navigate replace to="home" />} />

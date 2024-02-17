@@ -1,8 +1,11 @@
+import { useState } from "react";
+
+import useDeleteReservation from "../features/reservations/useDeleteReservation";
+import { getTotalPrice } from "../utils/helpers";
+
 import locationIcon from "../data/Icons/location.svg";
 import calendarIcon from "../data/Icons/calendar.svg";
 import moneyIcon from "../data/Icons/money.svg";
-import { useState } from "react";
-import useDeleteReservation from "../features/reservations/useDeleteReservation";
 import editIcon from "../data/Icons/edit.svg";
 import deleteIcon from "../data/Icons/delete.svg";
 
@@ -15,13 +18,8 @@ function Meeting({ meeting, onEditAppointment, onSetEdit, onEdit, onCreate }) {
   function handleEdit(meeting) {
     onSetEdit(true);
     onEditAppointment(meeting);
+    window.scrollTo(0, 0);
   }
-
-  const startTime = Number(start.slice(0, 2));
-  const endTime = Number(end.slice(0, 2));
-  const bookedTime = endTime - startTime;
-
-  const totalPrice = bookedTime * price + fuel;
 
   return (
     <li className="items-between mb-1 flex flex-col rounded-lg border border-black bg-black/50 p-2 capitalize duration-500 hover:bg-black/75">
@@ -73,7 +71,7 @@ function Meeting({ meeting, onEditAppointment, onSetEdit, onEdit, onCreate }) {
                 </div>
 
                 <p className="text-end text-green-600">
-                  Total: {totalPrice} 💸
+                  Total: {getTotalPrice(start, end, price, fuel)} 💸
                 </p>
 
                 {note && (
