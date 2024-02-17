@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 
-function NavLi({ path, children }) {
+function NavLi({ path, children, onClick }) {
   const base = `relative hover:text-white transition-all`;
 
   const after = `
@@ -9,7 +9,9 @@ function NavLi({ path, children }) {
   const hoverAfter = `hover:after:w-[100%]`;
   return (
     <li className={`${base} ${after} ${hoverAfter}`}>
-      <NavLink to={path}>{children}</NavLink>
+      <NavLink onClick={() => onClick((state) => !state)} to={path}>
+        {children}
+      </NavLink>
     </li>
   );
 }

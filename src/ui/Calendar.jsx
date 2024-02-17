@@ -16,6 +16,8 @@ import {
 import { useState } from "react";
 import { IoChevronBack, IoChevronForward } from "react-icons/io5";
 import { today } from "../utils/helpers";
+import createIcon from "../data/Icons/create.svg";
+import noMore from "../data/Icons/noMore.svg";
 
 const weekDays = ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"];
 
@@ -100,13 +102,29 @@ function Calendar({
           isEqual(day, selectedDay) && !isPast(subDays(selectedDay, -1)) ? (
             <button
               key={day.id}
-              className={`${reachedLimit && "bg-stone-800/25 text-stone-400/50"} rounded-xl bg-green-800/75 p-2 text-sm text-stone-200 duration-300 hover:bg-green-800/25`}
+              className={`${reachedLimit && "bg-transparent text-stone-400/50 hover:bg-transparent"} rounded-xl bg-green-800/75 p-2 text-sm text-stone-200 duration-300 hover:bg-green-800/25`}
               onClick={() => onSetCreate((state) => !state)}
               disabled={reachedLimit}
             >
-              {reachedLimit
-                ? `Can't create more than 3`
-                : `Create Appointment at ${format(day, "MMM d")}`}
+              {reachedLimit ? (
+                <div className="flex flex-col items-center gap-2">
+                  <img
+                    className="w-8"
+                    src={noMore}
+                    alt="Can't create appointment icon"
+                  />
+                  <span>Limt is reached</span>
+                </div>
+              ) : (
+                <div className="flex flex-col items-center gap-2">
+                  <img
+                    className="w-8"
+                    src={createIcon}
+                    alt="create appointment icon"
+                  />
+                  <span>Create on {format(day, "MMM d")}</span>
+                </div>
+              )}
             </button>
           ) : null,
         )}

@@ -1,9 +1,10 @@
 import locationIcon from "../data/Icons/location.svg";
 import calendarIcon from "../data/Icons/calendar.svg";
 import moneyIcon from "../data/Icons/money.svg";
-import clock from "../data/Icons/clock.svg";
 import { useState } from "react";
 import useDeleteReservation from "../features/reservations/useDeleteReservation";
+import editIcon from "../data/Icons/edit.svg";
+import deleteIcon from "../data/Icons/delete.svg";
 
 function Meeting({ meeting, onEditAppointment, onSetEdit, onEdit, onCreate }) {
   const { id, name, date, location, start, end, price, fuel, note } = meeting;
@@ -23,7 +24,7 @@ function Meeting({ meeting, onEditAppointment, onSetEdit, onEdit, onCreate }) {
   const totalPrice = bookedTime * price + fuel;
 
   return (
-    <li className="items-between mb-1 flex flex-col justify-center rounded-lg border border-black bg-black/50 p-2 capitalize duration-500 hover:bg-black/75">
+    <li className="items-between mb-1 flex flex-col rounded-lg border border-black bg-black/50 p-2 capitalize duration-500 hover:bg-black/75">
       {showMeeting ? (
         <>
           <button onClick={() => setShowMeeting(false)}>
@@ -75,7 +76,7 @@ function Meeting({ meeting, onEditAppointment, onSetEdit, onEdit, onCreate }) {
                   Total: {totalPrice} 💸
                 </p>
 
-                <p className="rounded-md bg-stone-200 p-1 text-black">{note}</p>
+                {note && <p className="rounded-md p-1 text-white">{note}</p>}
               </div>
             </div>
           </button>
@@ -87,14 +88,22 @@ function Meeting({ meeting, onEditAppointment, onSetEdit, onEdit, onCreate }) {
                 disabled={onEdit}
                 onClick={() => handleEdit(meeting)}
               >
-                Edit appointment
+                <div>
+                  <img
+                    className="w-5"
+                    src={editIcon}
+                    alt="edit appointment icon"
+                  />
+                </div>
               </button>
               <button
                 className={`mt-2 rounded-lg border border-black text-sm ${onEdit ? "bg-stone-400/25 text-stone-200" : "bg-red-800/75 hover:bg-red-800/25"} p-2`}
                 disabled={onEdit || isDeleting}
                 onClick={() => deleteReservation(id)}
               >
-                Delete appointment
+                <div>
+                  <img className="w-5" src={deleteIcon} alt="Rubish bin icon" />
+                </div>
               </button>
             </div>
           )}

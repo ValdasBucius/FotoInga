@@ -7,6 +7,9 @@ import FormItem from "./FormItem";
 import useCreateReservation from "../features/reservations/useCreateReservation";
 import useEditReservation from "../features/reservations/useEditReservation";
 import { priceIntervals, timeIntervals } from "../utils/helpers";
+import createIcon from "../data/Icons/confirm.svg";
+import editIcon from "../data/Icons/edit.svg";
+import cancelIcon from "../data/Icons/cancel.svg";
 
 function AppointmentForm({
   onSelectedDay,
@@ -24,6 +27,7 @@ function AppointmentForm({
     handleSubmit,
     reset,
     formState: { errors },
+    getValues,
   } = useForm({
     defaultValues: onEdit
       ? editValues
@@ -113,7 +117,12 @@ function AppointmentForm({
             disabled={isCreating || isEditing}
             className="rounded-md px-1 text-black"
             id="end"
-            {...register("end", { required: "This is required" })}
+            {...register("end", {
+              required: "This is required",
+              validate: (value) =>
+                value > getValues().start ||
+                "The start time cannot be earlier than the end time",
+            })}
           >
             {timeIntervals().map((time) => (
               <option value={time}>{time}</option>
@@ -158,13 +167,21 @@ function AppointmentForm({
           />
         </FormItem>
 
-        <div className="flex gap-2 text-center">
+        <div className="flex justify-between gap-2 text-center">
           <button
             className="rounded-md border border-black bg-green-800/75 px-2 text-sm tracking-widest duration-300 hover:bg-green-800/25"
             type="submit"
             disabled={isCreating || isEditing}
           >
-            {onEdit ? "Edit reservation" : "Create new Reservation"}
+            {onEdit ? (
+              <div className="flex items-center gap-2">
+                <img className="w-5" src={editIcon} alt="Pen icon" />
+              </div>
+            ) : (
+              <div className="flex items-center gap-2">
+                <img className="w-5" src={createIcon} alt="Check icon" />
+              </div>
+            )}
           </button>
 
           <button
@@ -173,7 +190,9 @@ function AppointmentForm({
             type="reset"
             disabled={isCreating || isEditing}
           >
-            Cancel
+            <div className="flex items-center gap-2">
+              <img className="w-4" src={cancelIcon} alt="X icon" />
+            </div>
           </button>
         </div>
       </form>
