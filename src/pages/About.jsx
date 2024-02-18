@@ -11,8 +11,14 @@ function About() {
           <h2 className="text-left text-[30px] uppercase tracking-widest">
             About me
           </h2>
-          <div>
-            <img className="max-w-48" src={about1} alt="photograher" />
+          <div className="relative text-stone-200">
+            <img className="max-w-[70%]" src={about1} alt="photograher" />
+
+            <p className="absolute left-24 top-8 bg-gradient-to-l from-black/75 to-transparent p-2 text-sm">
+              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quia
+              provident fugiat reprehenderit similique veritatis voluptates,
+              minima molestiae.
+            </p>
           </div>
         </div>
       </Container>
