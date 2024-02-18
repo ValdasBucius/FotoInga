@@ -8,12 +8,18 @@ import couple from "../data/galery/Couple.jpg";
 import personal from "../data/galery/Personal.jpg";
 import christering from "../data/galery/Christering.jpg";
 import baby from "../data/galery/baby.jpg";
+import { useContext } from "react";
+import { NavigationContext } from "../App";
 
 function Galery() {
+  const { burgerActive } = useContext(NavigationContext);
+
   return (
     <div className="absolute top-0 -z-20 min-h-dvh min-w-full bg-background1 bg-cover bg-center bg-no-repeat">
       <Container>
-        <div className="pt-[80px] text-center text-stone-200">
+        <div
+          className={`${!burgerActive ? "pt-[80px]" : "pt-[320px]"} text-center text-stone-200`}
+        >
           <h2 className="mb-2 text-left text-[30px] uppercase tracking-widest">
             Galery
           </h2>

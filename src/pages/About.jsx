@@ -1,8 +1,6 @@
 import Button from "../ui/Button";
 import Container from "../ui/Container";
 import about1 from "../data/About1.jpg";
-import about2 from "../data/About2.jpg";
-import about3 from "../data/About3.jpg";
 import about4 from "../data/about4.jpg";
 import { useContext } from "react";
 import { NavigationContext } from "../App";
