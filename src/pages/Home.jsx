@@ -13,6 +13,7 @@ function Home() {
         <h1 className="text-3xl uppercase tracking-widest sm:text-5xl">
           FotoInga
         </h1>
+
         <h2 className="sm:text-md mb-8 text-sm capitalize">
           Professional Lithuanian Photographer
         </h2>

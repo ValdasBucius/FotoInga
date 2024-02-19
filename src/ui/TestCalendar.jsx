@@ -7,6 +7,7 @@ import { today } from "../utils/helpers";
 import Calendar from "./Calendar";
 import Loader from "./Loader";
 import useReservations from "../features/reservations/useReservations";
+import { useUser } from "../authentification/useUser";
 
 function TestCalendar() {
   const { isLoading, reservations } = useReservations();
@@ -17,6 +18,7 @@ function TestCalendar() {
   const [reservationToEdit, setReservationToEdit] = useState();
   const [showMeetings, setShowMeetings] = useState(false);
 
+  const { isAuthenticated } = useUser();
   if (isLoading) return <Loader />;
 
   const selectedDayMeetings = reservations?.filter((meeting) =>

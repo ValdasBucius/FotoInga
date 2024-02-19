@@ -13,6 +13,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { createContext, useState } from "react";
 import ScrollToTop from "./features/reservations/ScrollToTop";
 import Login from "./pages/Login";
+import ProtectedRoute from "./ui/ProtectedRoute";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -27,42 +28,42 @@ export const LogedContext = createContext();
 
 function App() {
   const [burgerActive, setBurgerActive] = useState(false); //header, navigation, home
-  const [loged, setLoged] = useState(false);
 
   return (
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools initialIsOpen={false} />
-      <LogedContext.Provider
+
+      <NavigationContext.Provider
         value={{
-          loged,
-          setLoged,
+          burgerActive,
+          setBurgerActive,
         }}
       >
-        <NavigationContext.Provider
-          value={{
-            burgerActive,
-            setBurgerActive,
-          }}
-        >
-          <BrowserRouter>
-            <ScrollToTop />
-            <Routes>
-              <Route element={<AppLayout />}>
-                <Route index element={<Navigate replace to="home" />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="home" element={<Home />} />
-                <Route path="about" element={<About />} />
-                <Route path="contacts" element={<Contacts />} />
-                <Route path="galery" element={<Galery />} />
-                <Route path="galery/birthdays" element={<Birthdays />} />
-                <Route path="reservation" element={<Reservation />} />
-                <Route path="prices" element={<Prices />} />
-                <Route path="*" element={<WrongPage />} />
-              </Route>
-            </Routes>
-          </BrowserRouter>
-        </NavigationContext.Provider>
-      </LogedContext.Provider>
+        <BrowserRouter>
+          <ScrollToTop />
+          <Routes>
+            <Route path="/login" element={<Login />} />
+
+            <Route
+              element={
+                <ProtectedRoute>
+                  <AppLayout />
+                </ProtectedRoute>
+              }
+            >
+              <Route index element={<Navigate replace to="home" />} />
+              <Route path="home" element={<Home />} />
+              <Route path="about" element={<About />} />
+              <Route path="contacts" element={<Contacts />} />
+              <Route path="galery" element={<Galery />} />
+              <Route path="galery/birthdays" element={<Birthdays />} />
+              <Route path="reservation" element={<Reservation />} />
+              <Route path="prices" element={<Prices />} />
+              <Route path="*" element={<WrongPage />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </NavigationContext.Provider>
     </QueryClientProvider>
   );
 }

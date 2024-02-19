@@ -1,27 +1,30 @@
 import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { login } from "../services/apiAuth";
-import { useLogin } from "../authentification/useLogin";
-import ClipLoader from "react-spinners/ClipLoader";
 import { ClockLoader } from "react-spinners";
+import { useLogin } from "../authentification/useLogin";
 
 function LoginForm() {
-  const [email, setEmail] = useState("fotoinga@example.com");
-  const [password, setPassword] = useState("bandymas");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const { login, isLoading } = useLogin();
-  const handleEmail = (e) => setEmail(e.target.value);
-  const handlePassword = (e) => setPassword(e.target.value);
 
   function handleSubmit(e) {
     e.preventDefault();
     if (!email || !password) return;
-    login({ email, password });
+    login(
+      { email, password },
+      {
+        onSettled: () => {
+          setEmail("");
+          setPassword("");
+        },
+      },
+    );
   }
 
   return (
     <form
-      className="mx-auto flex flex-col justify-center gap-2 border p-4"
+      className="mx-auto flex flex-col justify-center gap-2 rounded-xl border p-4"
       onSubmit={handleSubmit}
     >
       <div className="flex justify-between gap-2 text-stone-200">
@@ -29,14 +32,11 @@ function LoginForm() {
         <input
           className="px-1 text-black"
           id="email"
-          onChange={handleEmail}
+          onChange={(e) => setEmail(e.target.value)}
           disabled={isLoading}
-          // {...register("email", { required: "This is required" })}
-          type="text"
-          // onChange={handleHoursQuantity}
-          placeholder="Enter username..."
+          type="email"
+          autoComplete="username"
         />
-        {/* {errors.email?.message && <p>{errors.email?.message}</p>} */}
       </div>
       <div className="flex justify-between gap-2 text-stone-200">
         <label htmlFor="password">Password</label>
@@ -44,13 +44,11 @@ function LoginForm() {
           className="px-1 text-black"
           id="password"
           disabled={isLoading}
-          onChange={handlePassword}
-          // {...register("password", { required: "This is required" })}
-          type="text"
-          // onChange={handleHoursQuantity}
-          placeholder="Enter password..."
+          onChange={(e) => setPassword(e.target.value)}
+          type="password"
+          value={password}
+          autoComplete="current-password"
         />
-        {/* {errors.password?.message && <p>{errors.password?.message}</p>} */}
       </div>
 
       <button
@@ -58,7 +56,11 @@ function LoginForm() {
         type="submit"
         disabled={isLoading}
       >
-        {isLoading ? <ClockLoader color="#05df31a6" /> : "Login"}
+        {isLoading ? (
+          <ClockLoader color="#36d7b7" loading size={50} speedMultiplier={1} />
+        ) : (
+          "Login"
+        )}
       </button>
     </form>
   );
