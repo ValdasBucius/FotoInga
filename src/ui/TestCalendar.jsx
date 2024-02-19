@@ -28,8 +28,8 @@ function TestCalendar() {
   }
 
   return (
-    <div className="flex flex-col gap-2 pb-8">
-      <div className="rounded-xl border border-black bg-black/50 p-4 lg:col-span-2">
+    <div className="flex flex-col gap-2 pb-8 md:relative md:flex-row md:gap-4 md:pb-0">
+      <div className="rounded-xl border border-black bg-black/50 p-4 md:w-[50%]">
         {create || edit ? (
           <AppointmentForm
             onSelectedDay={selectedDay}
@@ -52,7 +52,7 @@ function TestCalendar() {
         )}
       </div>
 
-      <div>
+      <div className="md:md:w-[50%]">
         <ul>
           {selectedDayMeetings.length > 0 ? (
             selectedDayMeetings.map((meeting) => (

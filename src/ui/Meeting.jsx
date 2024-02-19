@@ -12,7 +12,7 @@ import deleteIcon from "../data/Icons/delete.svg";
 function Meeting({ meeting, onEditAppointment, onSetEdit, onEdit, onCreate }) {
   const { id, name, date, location, start, end, price, fuel, note } = meeting;
 
-  const [showMeeting, setShowMeeting] = useState(false);
+  const [expandMeeting, setExpandMeeting] = useState(false);
   const { deleteReservation, isDeleting } = useDeleteReservation();
 
   function handleEdit(meeting) {
@@ -23,9 +23,13 @@ function Meeting({ meeting, onEditAppointment, onSetEdit, onEdit, onCreate }) {
 
   return (
     <li className="items-between mb-1 flex flex-col rounded-lg border border-black bg-black/50 p-2 capitalize duration-500 hover:bg-black/75">
-      {showMeeting ? (
+      {expandMeeting && (
         <>
-          <button onClick={() => setShowMeeting(false)}>
+          <button
+            onClick={() => {
+              setExpandMeeting(false);
+            }}
+          >
             <div className="flex flex-col">
               <div>
                 <div className="flex flex-col items-center">
@@ -108,22 +112,24 @@ function Meeting({ meeting, onEditAppointment, onSetEdit, onEdit, onCreate }) {
             </div>
           )}
         </>
-      ) : (
-        <button
-          className="flex flex-col items-center gap-1"
-          onClick={() => setShowMeeting(true)}
-        >
-          <div>
-            <img src={calendarIcon} alt="calendar icon" />
-          </div>
-
-          <p className="text-lg">{date}</p>
-          <p className="text-sm">
-            {start} - {end}
-          </p>
-          <p className="text-xl text-green-600">{name}</p>
-        </button>
       )}
+
+      <button
+        className="flex flex-col items-center gap-1"
+        onClick={() => {
+          setExpandMeeting(true);
+        }}
+      >
+        <div>
+          <img src={calendarIcon} alt="calendar icon" />
+        </div>
+
+        <p className="text-lg">{date}</p>
+        <p className="text-sm">
+          {start} - {end}
+        </p>
+        <p className="text-xl text-green-600">{name}</p>
+      </button>
     </li>
   );
 }
