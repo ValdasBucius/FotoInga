@@ -14,6 +14,7 @@ import { createContext, useState } from "react";
 import ScrollToTop from "./features/reservations/ScrollToTop";
 import Login from "./pages/Login";
 import ProtectedRoute from "./ui/ProtectedRoute";
+import PrivateRoutes from "./authentification/PrivateRoutes";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -42,15 +43,11 @@ function App() {
         <BrowserRouter>
           <ScrollToTop />
           <Routes>
-            <Route path="/login" element={<Login />} />
+            <Route element={<PrivateRoutes />}>
+              <Route path="/login" element={<Login />} />
+            </Route>
 
-            <Route
-              element={
-                <ProtectedRoute>
-                  <AppLayout />
-                </ProtectedRoute>
-              }
-            >
+            <Route element={<AppLayout />}>
               <Route index element={<Navigate replace to="home" />} />
               <Route path="home" element={<Home />} />
               <Route path="about" element={<About />} />
