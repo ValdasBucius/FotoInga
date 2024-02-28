@@ -28,11 +28,28 @@ function CalendarDays({
   firstDayCurrentMonth,
   days,
 }) {
+  const baseStyle =
+    "m-[0.5px] flex items-center justify-center rounded-md p-1 hover:bg-stone-400/50";
+
+  const daysOrder = (dayIndex, day) =>
+    dayIndex === 0 ? colStartClasses[getDay(day)] : undefined;
+
+  const currentDay = (day) => isToday(day) && "bg-green-800/75";
+
+  const currSelectedDay = (day, selectedDay) =>
+    isEqual(day, selectedDay) && "bg-green-200/25";
+
+  const daysInPast = (day) => isPast(subDays(day, -1)) && "text-stone-600/75";
+  // const daysBeforeCurrDay = (day) =>
+  //   !isSameMonth(day, firstDayCurrentMonth) && "text-stone-600";
+
+  // ${daysBeforeCurrDay(day)}
+
   return (
     <div className="mb-2 grid grid-cols-7 grid-rows-5 text-lg">
       {days.map((day, dayIndex) => (
         <button
-          className={`${dayIndex === 0 ? colStartClasses[getDay(day)] : undefined} ${isToday(day) && "bg-green-800/75"} ${isEqual(day, selectedDay) && "bg-green-200/25"} ${!isSameMonth(day, firstDayCurrentMonth) && "text-stone-600"} m-[0.5px] flex items-center justify-center rounded-md p-1 hover:bg-stone-400/50 ${isPast(subDays(day, -1)) && "text-stone-600/75"}`}
+          className={`${baseStyle} ${daysOrder(dayIndex, day)} ${currentDay(day)} ${currSelectedDay(day, selectedDay)} ${daysInPast(day)}`}
           key={day}
           onClick={() => setSelectedDay(day)}
         >

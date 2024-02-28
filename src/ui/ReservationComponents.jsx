@@ -4,11 +4,11 @@ import { useState } from "react";
 import Meeting from "./Meeting/Meeting";
 import AppointmentForm from "./AppointmentForm";
 import { today } from "../utils/helpers";
-import Calendar from "./Calendar";
+import Calendar from "./Calendar/Calendar";
 import Loader from "./Loader";
 import useReservations from "../features/reservations/useReservations";
 
-function TestCalendar() {
+function ReservationComponents() {
   const { isLoading, reservations } = useReservations();
 
   const [selectedDay, setSelectedDay] = useState(today);
@@ -73,4 +73,4 @@ function TestCalendar() {
   );
 }
 
-export default TestCalendar;
+export default ReservationComponents;

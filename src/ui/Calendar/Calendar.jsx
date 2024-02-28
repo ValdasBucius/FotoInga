@@ -1,10 +1,10 @@
 import { motion } from "framer-motion";
 
-import useCalendar from "./Calendar/useCalendar";
-import CalendarMonthSelector from "./Calendar/CalendarMonthSelector";
-import CalendarWeekDays from "./Calendar/CalendarWeekDays";
-import CalendarDays from "./Calendar/CalendarDays";
-import CreateButton from "./Calendar/CreateButton";
+import useCalendar from "./useCalendar";
+import CalendarMonthSelector from "./CalendarMonthSelector";
+import CalendarWeekDays from "./CalendarWeekDays";
+import CalendarDays from "./CalendarDays";
+import CreateButton from "./CreateButton";
 
 function Calendar({
   selectedDay,

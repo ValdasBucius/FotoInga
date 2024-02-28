@@ -1,9 +1,10 @@
 import Container from "../ui/Container";
 import background from "../data/Background5.jpg";
 
-import TestCalendar from "../ui/TestCalendar";
+import TestCalendar from "../ui/ReservationComponents";
 import { useContext } from "react";
 import { NavigationContext } from "../App";
+import ReservationComponents from "../ui/ReservationComponents";
 
 function Reservation() {
   const { burgerActive } = useContext(NavigationContext);
@@ -17,7 +18,7 @@ function Reservation() {
           <h2 className="mb-2 text-left text-[30px] uppercase tracking-widest">
             Reservations
           </h2>
-          <TestCalendar />
+          <ReservationComponents />
         </div>
       </Container>
     </div>
