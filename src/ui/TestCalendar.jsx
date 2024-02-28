@@ -1,13 +1,12 @@
 import { isSameDay, parseISO } from "date-fns";
 
 import { useState } from "react";
-import Meeting from "./Meeting";
+import Meeting from "./Meeting/Meeting";
 import AppointmentForm from "./AppointmentForm";
 import { today } from "../utils/helpers";
 import Calendar from "./Calendar";
 import Loader from "./Loader";
 import useReservations from "../features/reservations/useReservations";
-import { useUser } from "../authentification/useUser";
 
 function TestCalendar() {
   const { isLoading, reservations } = useReservations();
@@ -16,9 +15,7 @@ function TestCalendar() {
   const [create, setCreate] = useState(false);
   const [edit, setEdit] = useState(false);
   const [reservationToEdit, setReservationToEdit] = useState();
-  const [showMeetings, setShowMeetings] = useState(false);
 
-  const { isAuthenticated } = useUser();
   if (isLoading) return <Loader />;
 
   const selectedDayMeetings = reservations?.filter((meeting) =>

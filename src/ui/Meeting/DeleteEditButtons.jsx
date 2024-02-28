@@ -1,6 +1,6 @@
-import useDeleteReservation from "../features/reservations/useDeleteReservation";
-import deleteIcon from "../data/Icons/delete.svg";
-import editIcon from "../data/Icons/edit.svg";
+import useDeleteReservation from "../../features/reservations/useDeleteReservation";
+import deleteIcon from "../../data/Icons/delete.svg";
+import editIcon from "../../data/Icons/edit.svg";
 
 function DeleteEditButtons({ onEdit, meeting, onSetEdit, onEditAppointment }) {
   const { deleteReservation, isDeleting } = useDeleteReservation();

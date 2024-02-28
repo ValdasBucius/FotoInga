@@ -1,4 +1,4 @@
-import calendarIcon from "../data/Icons/calendar.svg";
+import calendarIcon from "../../data/Icons/calendar.svg";
 
 function MeetingSmall({ setShowMeeting, date, start, end, name }) {
   return (
