@@ -3,12 +3,11 @@ import NavLi from "./NavLi";
 import { NavigationContext } from "../App";
 import { motion } from "framer-motion";
 import Logout from "../authentification/Logout";
+import { horizontal, navStyle, vertical } from "../styles/styles";
 
 function Navigation({ spreadNavigation }) {
   const { setBurgerActive } = useContext(NavigationContext);
-  const horizontal = `flex gap-4 text-sm text-[#f4f4f4]`;
-  const vertical = `flex flex-col items-center justify-center gap-4 text-center tracking-wide text-[#f4f4f4]`;
-  const navStyle = `bg-gradient-to-t from-black to-black/10 py-4 flex`;
+
   return (
     <>
       <nav className={spreadNavigation ? "flex items-center gap-4" : navStyle}>
@@ -41,7 +40,7 @@ function Navigation({ spreadNavigation }) {
             Prices
           </NavLi>
         </motion.ul>
-        <Logout />
+        {!spreadNavigation ? '' : <Logout />}
       </nav>
     </>
   );

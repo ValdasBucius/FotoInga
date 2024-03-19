@@ -5,6 +5,7 @@ import activeBurger from "../data/Icons/closeNavigation.svg";
 import { NavigationContext } from "../App";
 import useWindowSize from "../hooks/useWindowSize";
 import { Link } from "react-router-dom";
+import Logout from "../authentification/Logout";
 
 function Header() {
   const { burgerActive, setBurgerActive } = useContext(NavigationContext);
@@ -32,9 +33,12 @@ function Header() {
         {spreadNavigation ? (
           <Navigation spreadNavigation={spreadNavigation} />
         ) : (
+          <div className="flex gap-2">
+          <Logout />
           <button onClick={() => setBurgerActive((state) => !state)}>
             <img src={burgerActive ? activeBurger : burger} alt="burger menu" />
           </button>
+          </div>
         )}
       </header>
 

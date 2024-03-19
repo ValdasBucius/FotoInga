@@ -20,7 +20,7 @@ function About() {
             <img
               className="max-w-[70%] md:max-w-[40%] lg:max-w-[30%]"
               src={about1}
-              alt="photograher"
+              alt="photographer"
             />
 
             <p className="md:text-md absolute left-24 top-8 bg-gradient-to-l from-black/75 to-transparent p-2 text-sm sm:left-48 lg:left-[15%]">
