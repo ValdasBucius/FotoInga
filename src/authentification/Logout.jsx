@@ -3,6 +3,8 @@ import { useLogout } from "./useLogout";
 import { ClockLoader } from "react-spinners";
 import { useUser } from "./useUser";
 import { useNavigate } from "react-router-dom";
+import { CgProfile } from "react-icons/cg";
+
 
 function Logout() {
   const { isAuthenticated, isLoading } = useUser();
@@ -23,7 +25,8 @@ function Logout() {
       onClick={() => navigate("/login")}
       className="text-[14px] text-green-600 duration-300 hover:text-green-200"
     >
-      {isLoading ? <ClockLoader /> : "Login"}
+      {isLoading ? <ClockLoader /> : <CgProfile size={22}/>
+}
     </button>
   );
 }
