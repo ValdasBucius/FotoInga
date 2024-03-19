@@ -10,16 +10,18 @@ function Navigation({ spreadNavigation }) {
 
   return (
     <>
-      <nav className={spreadNavigation ? "flex items-center gap-4" : navStyle}>
-        <motion.ul
-          className={spreadNavigation ? horizontal : vertical}
-          variants={{
+      <motion.nav 
+      variants={{
             hidden: { opacity: 0, x: 100 },
             visible: { opacity: 1, x: 0 },
           }}
           initial="hidden"
           animate="visible"
           transition={{ duration: 0.5, delay: 0.25 }}
+          className={spreadNavigation ? "flex items-center gap-4" : navStyle}>
+        <ul
+          className={spreadNavigation ? horizontal : vertical}
+          
         >
           <NavLi onClick={setBurgerActive} path="/">
             Home
@@ -39,9 +41,9 @@ function Navigation({ spreadNavigation }) {
           <NavLi onClick={setBurgerActive} path="/prices">
             Prices
           </NavLi>
-        </motion.ul>
+        </ul>
         {!spreadNavigation ? '' : <Logout />}
-      </nav>
+      </motion.nav>
     </>
   );
 }
