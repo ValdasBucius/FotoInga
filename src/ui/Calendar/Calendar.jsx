@@ -5,6 +5,7 @@ import CalendarMonthSelector from "./CalendarMonthSelector";
 import CalendarWeekDays from "./CalendarWeekDays";
 import CalendarDays from "./CalendarDays";
 import CreateButton from "./CreateButton";
+import { useUser } from "../../authentification/useUser";
 
 function Calendar({
   selectedDay,
@@ -17,6 +18,7 @@ function Calendar({
   const { handleNextMonth, handlePreviousMonth, firstDayCurrentMonth, days } =
     useCalendar();
 
+  const { isLoading, isAuthenticated, user } = useUser();
   return (
     <motion.div
       variants={{
@@ -42,13 +44,15 @@ function Calendar({
         days={days}
       />
 
-      <CreateButton
-        selectedDayMeetings={selectedDayMeetings}
-        onEdit={onEdit}
-        onSetCreate={onSetCreate}
-        selectedDay={selectedDay}
-        days={days}
-      />
+      {isAuthenticated && (
+        <CreateButton
+          selectedDayMeetings={selectedDayMeetings}
+          onEdit={onEdit}
+          onSetCreate={onSetCreate}
+          selectedDay={selectedDay}
+          days={days}
+        />
+      )}
     </motion.div>
   );
 }

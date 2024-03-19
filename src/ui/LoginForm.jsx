@@ -57,7 +57,7 @@ function LoginForm() {
         disabled={isLoading}
       >
         {isLoading ? (
-          <ClockLoader color="#36d7b7" loading size={50} speedMultiplier={1} />
+          <ClockLoader color="#36d7b7" loading speedMultiplier={1} />
         ) : (
           "Login"
         )}

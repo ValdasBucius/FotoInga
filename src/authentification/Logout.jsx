@@ -12,7 +12,7 @@ function Logout() {
   return isAuthenticated ? (
     <button disabled={isLoading} onClick={logout}>
       {isLoading ? (
-        <ClockLoader size="2" />
+        <ClockLoader />
       ) : (
         <MdLogout className="text-green-600 duration-300 hover:text-red-600" />
       )}
@@ -23,7 +23,7 @@ function Logout() {
       onClick={() => navigate("/login")}
       className="text-[14px] text-green-600 duration-300 hover:text-green-200"
     >
-      {isLoading ? <ClockLoader size="2" /> : "Login"}
+      {isLoading ? <ClockLoader /> : "Login"}
     </button>
   );
 }

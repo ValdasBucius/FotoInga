@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import Navigation from "./Navigation";
 import burger from "../data/Icons/navigation.svg";
 import activeBurger from "../data/Icons/closeNavigation.svg";
